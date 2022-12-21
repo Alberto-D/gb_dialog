@@ -12,7 +12,16 @@ find_package(catkin REQUIRED COMPONENTS
   sound_play
   actionlib
   actionlib_msgs
+  message_generation
 )
+
+add_message_files(
+  FILES
+  ActionMsg.msg
+)
+
+generate_messages(DEPENDENCIES std_msgs )
+
 
 catkin_package(
 	INCLUDE_DIRS include
@@ -36,9 +45,9 @@ add_dependencies(gb_dialog ${catkin_EXPORTED_TARGETS} sound_play_generate_messag
 target_link_libraries(gb_dialog ${catkin_LIBRARIES})
 
 
-add_executable(example_df_node src/example/exampleDF.cpp)
-add_dependencies(example_df_node ${catkin_EXPORTED_TARGETS} )
-target_link_libraries(example_df_node ${catkin_LIBRARIES} gb_dialog)
+add_executable(Reachy_speech_node src/Reachy_speech.cpp)
+add_dependencies(Reachy_speech_node external_package_generate_messages_cpp message_runtime ${catkin_EXPORTED_TARGETS} )
+target_link_libraries(Reachy_speech_node ${catkin_LIBRARIES} gb_dialog)
 
 install(TARGETS gb_dialog
         ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
